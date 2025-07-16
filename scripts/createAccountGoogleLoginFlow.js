@@ -297,6 +297,7 @@ window.addEventListener("authChecked", async function () {
           const respData = await response.json();
           const token = respData.token;
           sessionStorage.setItem("jwt", token);
+          showAlertDiv("Account created successfully!", false, residentialForm);
           console.log("Login successful, token stored in sessionStorage.");
           //wait one second before redirecting
           await new Promise((resolve) => setTimeout(resolve, 2000));
@@ -348,6 +349,7 @@ window.addEventListener("authChecked", async function () {
           const token = respData.token;
           sessionStorage.setItem("jwt", token);
           console.log("Login successful, token stored in sessionStorage.");
+          showAlertDiv("Account created successfully!", false, businessForm);
           //wait one second before redirecting
           await new Promise((resolve) => setTimeout(resolve, 2000));
           if (data.adminUser) {
