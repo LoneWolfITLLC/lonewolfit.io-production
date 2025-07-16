@@ -132,13 +132,18 @@ window.addEventListener("authChecked", async function () {
     if (isBusiness) {
       // Business form field IDs
       if (form.querySelector("#usernameBusiness"))
-        form.querySelector("#usernameBusiness").value = email.split("@")[0].trim();
+        form.querySelector("#usernameBusiness").value = email
+          .split("@")[0]
+          .trim();
       if (form.querySelector("#firstNameBusiness"))
-        form.querySelector("#firstNameBusiness").value = tempUserData.first_name || "";
+        form.querySelector("#firstNameBusiness").value =
+          tempUserData.first_name || "";
       if (form.querySelector("#lastNameBusiness"))
-        form.querySelector("#lastNameBusiness").value = tempUserData.last_name || "";
+        form.querySelector("#lastNameBusiness").value =
+          tempUserData.last_name || "";
       if (form.querySelector("#middleNameBusiness"))
-        form.querySelector("#middleNameBusiness").value = tempUserData.middle_name || "";
+        form.querySelector("#middleNameBusiness").value =
+          tempUserData.middle_name || "";
       if (form.querySelector("#phoneBusiness"))
         form.querySelector("#phoneBusiness").value = tempUserData.phone || "";
       if (form.querySelector("#emailBusiness"))
@@ -146,15 +151,21 @@ window.addEventListener("authChecked", async function () {
     } else {
       // Residential form field IDs
       if (form.querySelector("#usernameResidential"))
-        form.querySelector("#usernameResidential").value = email.split("@")[0].trim();
+        form.querySelector("#usernameResidential").value = email
+          .split("@")[0]
+          .trim();
       if (form.querySelector("#firstNameResidential"))
-        form.querySelector("#firstNameResidential").value = tempUserData.first_name || "";
+        form.querySelector("#firstNameResidential").value =
+          tempUserData.first_name || "";
       if (form.querySelector("#lastNameResidential"))
-        form.querySelector("#lastNameResidential").value = tempUserData.last_name || "";
+        form.querySelector("#lastNameResidential").value =
+          tempUserData.last_name || "";
       if (form.querySelector("#middleNameResidential"))
-        form.querySelector("#middleNameResidential").value = tempUserData.middle_name || "";
+        form.querySelector("#middleNameResidential").value =
+          tempUserData.middle_name || "";
       if (form.querySelector("#phoneResidential"))
-        form.querySelector("#phoneResidential").value = tempUserData.phone || "";
+        form.querySelector("#phoneResidential").value =
+          tempUserData.phone || "";
       if (form.querySelector("#emailResidential"))
         form.querySelector("#emailResidential").value = email;
     }
