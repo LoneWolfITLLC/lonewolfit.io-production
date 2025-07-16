@@ -62,6 +62,15 @@ window.addEventListener("preAuthChecked", function () {
 function areRequiredFieldsFilled(form) {
   const requiredFields = form.querySelectorAll("[required]");
   for (const field of requiredFields) {
+	// Explicitly check businessCountry and businessState for business form
+	if (form.id === "registerFormBusiness") {
+	  if (field.id === "businessCountry" && field.value === "") {
+		return false;
+	  }
+	  if (field.id === "businessState" && field.value === "") {
+		return false;
+	  }
+	}
 	// Skip optional fields (not required)
 	if (
 	  (field.type === "checkbox" && !field.checked) ||
