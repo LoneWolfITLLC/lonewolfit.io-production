@@ -331,12 +331,27 @@ window.addEventListener("authChecked", async function () {
         if (response.ok) {
           const respData = await response.json();
           const token = respData.token;
-          if (token) {
-            sessionStorage.setItem("jwt", token);
-            const redirect = getQueryParam("redirect_uri");
-            window.location.href = redirect || `index.html?token=${token}`;
+          sessionStorage.setItem("jwt", token);
+          console.log("Login successful, token stored in sessionStorage.");
+          //wait one second before redirecting
+          await new Promise((resolve) => setTimeout(resolve, 2000));
+          if (data.adminUser) {
+            // Only append redirect_uri if it is not the admin or member portal itself
+            if (
+              redirectUri &&
+              redirectUri !== "admin.html" &&
+              redirectUri !== "members.html"
+            )
+              window.location.href = `admin.html?redirect_uri=${redirectUri}`;
+            else window.location.href = `admin.html`;
           } else {
-            showAlertDiv("Token not found in response.", true, businessForm);
+            if (
+              redirectUri &&
+              redirectUri !== "members.html" &&
+              redirectUri !== "admin.html"
+            )
+              window.location.href = `members.html?redirect_uri=${redirectUri}`;
+            else window.location.href = `members.html`;
           }
         } else {
           const errorText = await response.text();
