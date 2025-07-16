@@ -60,27 +60,28 @@ window.addEventListener("preAuthChecked", function () {
 });
 
 function areRequiredFieldsFilled(form) {
-	const requiredFields = form.querySelectorAll("[required]");
-	for (const field of requiredFields) {
-		// Skip optional fields (not required)
-		if (
-			(field.type === "checkbox" && !field.checked) ||
-			(field.type !== "checkbox" &&
-				!field.value.trim() &&
-				!(
-					field.id === "stripeCustomerIdBusiness" ||
-					field.id === "stripeCustomerIdResidential" ||
-					field.id === "middleNameBusiness" ||
-					field.id === "middleNameResidential" ||
-					field.id === "address2Business" ||
-					field.id === "address2Residential" ||
-					field.id === "businessAddress2Business"
-				))
-		) {
-			return false;
-		}
+  const requiredFields = form.querySelectorAll("[required]");
+  for (const field of requiredFields) {
+	// Skip optional fields (not required)
+	if (
+	  (field.type === "checkbox" && !field.checked) ||
+	  (field.tagName === "SELECT" && field.value === "") ||
+	  (field.type !== "checkbox" && field.tagName !== "SELECT" &&
+		!field.value.trim() &&
+		!(
+		  field.id === "stripeCustomerIdBusiness" ||
+		  field.id === "stripeCustomerIdResidential" ||
+		  field.id === "middleNameBusiness" ||
+		  field.id === "middleNameResidential" ||
+		  field.id === "address2Business" ||
+		  field.id === "address2Residential" ||
+		  field.id === "businessAddress2Business"
+		))
+	) {
+	  return false;
 	}
-	return true;
+  }
+  return true;
 }
 
 window.addEventListener("authChecked", function (event) {
@@ -510,9 +511,6 @@ function updateStripeCustomerDetails(formType) {
 	}
 
 	data.address = parseAddress(data.address);
-	if (formType === "business" && data.businessAddress) {
-		data.businessAddress = parseAddress(data.businessAddress);
-	}
 
 	const token = sessionStorage.getItem("jwt");
 	if (!token) {
