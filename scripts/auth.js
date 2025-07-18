@@ -4,7 +4,7 @@ let requireLogin = false; // Set this to true if you want to require the user to
 let loggedIn = false; // Track if the user is logged in
 let redirectToPortal = false; // Set this to true if you want to redirect to portal on auth success
 let requireUserToBeAdmin = false; // Set this to true if you want to require the user to be an admin to view the page.
-const URL_BASE = "https://lonewolfit.io:2096"; // BASE URL FOR API REQUESTS
+const URL_BASE = "https://www.lonewolfit.io:2096";
 const ADMIN_PATH = "admin.html";
 const MEMBER_PATH = "members.html";
 const triggerDarkModeEvent = new CustomEvent("triggerDarkMode");
@@ -12,6 +12,16 @@ const triggerDarkModeEvent = new CustomEvent("triggerDarkMode");
 function executeOnLoad() {
   if (!hasExecuted) {
     hasExecuted = true;
+    // Redirect if loaded on port 2096 or URI contains :2096
+    if (
+      window.location.port === "2096" ||
+      window.location.href.includes(":2096")
+    ) {
+      const url = new URL(window.location.href);
+      url.port = "";
+      window.location.replace(url.toString());
+      return;
+    }
     const preAuthEvent = new CustomEvent("preAuthChecked");
     window.dispatchEvent(preAuthEvent);
     onLoad();
