@@ -4,7 +4,7 @@ let requireLogin = false; // Set this to true if you want to require the user to
 let loggedIn = false; // Track if the user is logged in
 let redirectToPortal = false; // Set this to true if you want to redirect to portal on auth success
 let requireUserToBeAdmin = false; // Set this to true if you want to require the user to be an admin to view the page.
-const URL_BASE = "https://www.lonewolfit.io:2096";
+const URL_BASE = "http://localhost:3000";
 const ADMIN_PATH = "admin.html";
 const MEMBER_PATH = "members.html";
 const triggerDarkModeEvent = new CustomEvent("triggerDarkMode");
@@ -44,12 +44,10 @@ window.addEventListener("unload", (event) => {
 
 //––––– loading modal toggles –––––
 function showLoading() {
-	const loadingModal = document.getElementById("loadingModal");
-	if (loadingModal) loadingModal.style.display = "flex";
+	if(typeof loadingModal === "function" && !document.getElementById("loadingModal")) loadingModal();
 }
 function hideLoading() {
-	const loadingModal = document.getElementById("loadingModal");
-	if (loadingModal) loadingModal.style.display = "none";
+	if(typeof closeModalWithAnimation === "function") closeModalWithAnimation(document.getElementById("loadingModal"));
 }
 function getTokenFromSession() {
 	const token = sessionStorage.getItem("jwt");
