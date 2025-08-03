@@ -88,8 +88,9 @@ window.addEventListener("authChecked", function () {
           tempEmail = null;
           hideLoading();
           const errorData = await response.json();
+          const errorMessage = await response.text();
           alertModal(
-            errorData.message || "Login failed! Please try again."
+            errorData.message || errorMessage || "Login failed! Please try again."
           );
         }
       } catch (error) {
@@ -172,6 +173,7 @@ window.addEventListener("authChecked", function () {
         } else {
           hideLoading();
           const errorData = await response.text();
+          const errorJson = await response.json();
           if(response.status === 404) {
             const errmodal = alertModal("Login session not found or expired. Please try logging in again after waiting for the refresh...", true);
             setTimeout(() => {
@@ -181,7 +183,7 @@ window.addEventListener("authChecked", function () {
           }
 
           else alertModal(
-            errorData || "Verification failed! Please try again."
+            errorData || errorJson?.message || "Verification failed! Please try again."
           );
         }
       } catch (error) {
